@@ -1,9 +1,9 @@
 import type { Metadata, Viewport } from 'next';
+import { isPublicSite, siteOrigin } from '@/src/site-url';
 import './globals.css';
 
-const configuredOrigin = process.env.NEXT_PUBLIC_SITE_URL?.trim();
-const siteUrl = configuredOrigin && /^https?:\/\//.test(configuredOrigin) ? configuredOrigin : process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3000';
-const isPublic = Boolean(siteUrl.startsWith('https://') && !siteUrl.includes('your-portfolio-domain'));
+const siteUrl = siteOrigin();
+const isPublic = isPublicSite();
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: { default: 'Abdallah Sayed — Creative Engineering & Digital Products', template: '%s | Abdallah Sayed' },
